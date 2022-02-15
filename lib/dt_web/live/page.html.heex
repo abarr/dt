@@ -1,0 +1,22 @@
+<div class="w-full bg-green-50 p-10">
+    <div class="bg-white shadow ">
+        <ul role="list" class="divide-y divide-gray-200">
+            <li>
+                <div class="grid grid-cols-2">
+                    <div>
+                        <.live_component 
+                            module={DatePicker} 
+                            id="one" 
+                            selected_date={nil}
+                            current_date={@today}
+                            today={@today}
+                        />
+                    </div>
+                    <div class="m-10 text-gray-800 font-normal">
+                        <label> Parent LiveView - Date selected: <%= get_date("one", @selected_dates) %></label>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>  
