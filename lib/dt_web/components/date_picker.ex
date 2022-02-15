@@ -8,8 +8,8 @@ defmodule DtWeb.Components.DatePicker do
   end
 
   def handle_event("prev-month", _, socket) do
-    date = Date.beginning_of_month(socket.assigns.current_date) |> Date.add(-1)
-    {:noreply, assign(socket, current_date: date)}
+    date = socket.assigns.current_date
+    {:noreply, assign(socket, current_date: previous_month(date))}
   end
 
   def handle_event("date_selected", %{"date" => date, "id" => id}, socket) do
@@ -21,7 +21,7 @@ defmodule DtWeb.Components.DatePicker do
   def render(assigns) do
     ~H"""
     <div id={@id} class="">
-      <div class="relative" phx-click={JS.toggle(to: "#picker_#{@id}")} phx-target={@myself}>
+      <div class="relative" phx-click={JS.toggle(to: "#picker_#{@id}", in: {"ease-in duration-300", "opacity-0", "opacity-100"}, out: {"ease-out duration-300", "opacity-100", "opacity-0"})} phx-target={@myself}>
         <div class=" w-full max-w-md flex-none border-l border-gray-100 py-2 px-8 block">
           <div>
             <label for="selected_date" class="block text-sm font-medium text-gray-700">Date</label>
@@ -37,8 +37,8 @@ defmodule DtWeb.Components.DatePicker do
           </div>
         </div>
       </div>
-      <div id={"picker_#{@id}"} class="hidden relative" >
-        <div phx-click-away={JS.hide(to: "#picker_#{@id}")} phx-target={@myself} class="w-full max-w-md flex-none border-l border-gray-100 py-2 px-8 block">
+      <div id={"picker_#{@id}"} class="hidden w-full max-w-md absolute z-40 bg-white" >
+        <div phx-click-away={JS.hide(to: "#picker_#{@id}")} phx-target={@myself} class=" flex-none border-l border-gray-100 py-2 px-8 block">
           <div class="flex items-center text-center text-gray-900">
             <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500" phx-target={@myself} phx-click={JS.push("prev-month", loading: "#picker_#{@id}")}>
               <span class="sr-only">Previous month</span>
@@ -63,12 +63,20 @@ defmodule DtWeb.Components.DatePicker do
           </div>
           <div class="isolate mt-2 grid grid-cols-7 gap-px bg-gray-200 text-sm shadow ring-1 ring-gray-200 ring-rounded-lg">
             <%= for week <- week_rows(@current_date), date <- week  do %>
-              <button type="button" class={"bg-white py-1.5 text-gray-400 bg-white hover:bg-gray-100 focus:z-10 "} phx-target={@myself}
-                    phx-click={Phoenix.LiveView.JS.push("date_selected", value: %{date: date, id: @id}) |> JS.hide(to: "#picker_#{@id}")}>
-                <time class={"mx-auto flex h-7 w-7 items-center justify-center rounded-full #{if @selected_date == date, do: "bg-gray-600 text-white"} #{if @today == date, do: "font-semibold text-indigo-600"}"}>
-                  <%= Calendar.strftime(date, "%d") %>
-                </time>
-              </button>
+              <%= if before_or_equal?(date, assigns[:min]) or before_or_equal?(date, assigns[:max]) do %>
+                <button type="button" class={"bg-white py-1.5 text-gray-400 bg-white bg-gray-100"}>
+                  <time class={"mx-auto flex h-7 w-7 items-center justify-center rounded-full"}>
+                    <%= Calendar.strftime(date, "%d") %>
+                  </time>
+                </button>
+              <% else %>
+                <button type="button" class={"bg-white py-1.5 text-gray-400 bg-white hover:bg-gray-100 focus:z-10 #{if @today == date, do: "bg-gray-100"}"} phx-target={@myself}
+                      phx-click={Phoenix.LiveView.JS.push("date_selected", value: %{date: date, id: @id}) |> JS.hide(to: "#picker_#{@id}")}>
+                  <time class={"mx-auto flex h-7 w-7 items-center justify-center rounded-full #{if @selected_date == date, do: "bg-gray-600 font-normal text-white"} "}>
+                    <%= Calendar.strftime(date, "%d") %>
+                  </time>
+                </button>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -94,4 +102,26 @@ defmodule DtWeb.Components.DatePicker do
 
     Date.range(first, last) |> Enum.map(& &1) |> Enum.chunk_every(7)
   end
+
+  defp previous_month(date) do
+    Date.beginning_of_month(date)
+    |> Date.add(-1)
+  end
+
+  defp before_or_equal?(_, nil), do: false
+  defp before_or_equal?(date, min) do
+    case Date.compare(date, min) do
+      :gt -> false
+      _ -> true
+    end
+  end
+
+  defp after_or_equal?(_, nil), do: false
+  defp after_or_equal?(date, max) do
+    case Date.compare(date, max) do
+      :lt -> false
+      _ -> true
+    end
+  end
+
 end

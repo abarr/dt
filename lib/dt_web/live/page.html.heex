@@ -1,19 +1,38 @@
-<div class="w-full bg-green-50 p-10">
-    <div class="bg-white shadow ">
-        <ul role="list" class="divide-y divide-gray-200">
-            <li>
+<div class="w-full  p-10">
+    <div class="bg-white">
+        <ul role="list" class="">
+            <li class="mt-8 border">
+                <p class="p-10 font-medium text-xl">Datepick with no restrictions</p>
                 <div class="grid grid-cols-2">
-                    <div>
+                    <div class="">
                         <.live_component 
                             module={DatePicker} 
-                            id="one" 
+                            id="1" 
                             selected_date={nil}
                             current_date={@today}
                             today={@today}
                         />
                     </div>
                     <div class="m-10 text-gray-800 font-normal">
-                        <label> Parent LiveView - Date selected: <%= get_date("one", @selected_dates) %></label>
+                        <label> Parent LiveView - Date selected: <%= get_date("1", @selected_dates) %></label>
+                    </div>
+                </div>
+            </li>
+            <li class="mt-8 border">
+                <p class="p-10 font-medium text-xl">Datepick with option min and max dates</p>
+                <div class="grid grid-cols-2">
+                    <div>
+                        <.live_component 
+                            module={DatePicker} 
+                            id="2" 
+                            selected_date={nil}
+                            current_date={@today}
+                            today={@today},
+                            min={Date.beginning_of_month(@today)}
+                        />
+                    </div>
+                    <div class="m-10 text-gray-800 font-normal">
+                        <label> Parent LiveView - Date selected: <%= get_date("2", @selected_dates) %></label>
                     </div>
                 </div>
             </li>
