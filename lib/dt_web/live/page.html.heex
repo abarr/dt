@@ -1,8 +1,8 @@
-<div class="w-full  p-10">
+<div class="w-full p-10">
     <div class="bg-white">
         <ul role="list" class="">
             <li class="mt-8 border">
-                <p class="p-10 font-medium text-xl">Datepick with no restrictions</p>
+                <p class="p-10 font-medium text-xl">Datepicker with no restrictions</p>
                 <div class="grid grid-cols-2">
                     <div class="">
                         <.live_component 
@@ -19,7 +19,7 @@
                 </div>
             </li>
             <li class="mt-8 border">
-                <p class="p-10 font-medium text-xl">Datepick with option min and max dates</p>
+                <p class="p-10 font-medium text-xl">Datepick with minimum date set to first of current month</p>
                 <div class="grid grid-cols-2">
                     <div>
                         <.live_component 
@@ -33,6 +33,43 @@
                     </div>
                     <div class="m-10 text-gray-800 font-normal">
                         <label> Parent LiveView - Date selected: <%= get_date("2", @selected_dates) %></label>
+                    </div>
+                </div>
+            </li>
+            <li class="mt-8 border">
+                <p class="p-10 font-medium text-xl">Datepick with maximum date set to last date of current month</p>
+                <div class="grid grid-cols-2">
+                    <div>
+                        <.live_component 
+                            module={DatePicker} 
+                            id="3" 
+                            selected_date={nil}
+                            current_date={@today}
+                            today={@today},
+                            max={Date.end_of_month(@today)}
+                        />
+                    </div>
+                    <div class="m-10 text-gray-800 font-normal">
+                        <label> Parent LiveView - Date selected: <%= get_date("3", @selected_dates) %></label>
+                    </div>
+                </div>
+            </li>
+            <li class="mt-8 border">
+                <p class="p-10 font-medium text-xl">Datepick with minimum and maximum dates set to first and last date of current month</p>
+                <div class="grid grid-cols-2">
+                    <div>
+                        <.live_component 
+                            module={DatePicker} 
+                            id="4" 
+                            selected_date={nil}
+                            current_date={@today}
+                            today={@today},
+                            max={Date.end_of_month(@today)},
+                            min={Date.beginning_of_month(@today)}
+                        />
+                    </div>
+                    <div class="m-10 text-gray-800 font-normal">
+                        <label> Parent LiveView - Date selected: <%= get_date("4", @selected_dates) %></label>
                     </div>
                 </div>
             </li>

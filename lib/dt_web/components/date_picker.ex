@@ -63,7 +63,7 @@ defmodule DtWeb.Components.DatePicker do
           </div>
           <div class="isolate mt-2 grid grid-cols-7 gap-px bg-gray-200 text-sm shadow ring-1 ring-gray-200 ring-rounded-lg">
             <%= for week <- week_rows(@current_date), date <- week  do %>
-              <%= if before_or_equal?(date, assigns[:min]) or before_or_equal?(date, assigns[:max]) do %>
+              <%= if before_or_equal?(date, assigns[:min]) or after_or_equal?(date, assigns[:max]) do %>
                 <button type="button" class={"bg-white py-1.5 text-gray-400 bg-white bg-gray-100"}>
                   <time class={"mx-auto flex h-7 w-7 items-center justify-center rounded-full"}>
                     <%= Calendar.strftime(date, "%d") %>

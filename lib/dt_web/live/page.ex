@@ -1,8 +1,6 @@
 defmodule DtWeb.Page do
   use Phoenix.LiveView
-
   alias DtWeb.Components.DatePicker
-
 
   def mount(_params, _session, socket) do
     today = NaiveDateTime.local_now() |> NaiveDateTime.to_date()
