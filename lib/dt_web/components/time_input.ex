@@ -39,17 +39,18 @@ defmodule DtWeb.Components.TimeInput do
 
   def render(assigns) do
     ~H"""
-    <div id={@id} class="flex-none border-l border-gray-100 py-2 px-8 block">
+    <div id={@id} class="flex-none py-3 block">
         <div class="w-48">
           <div class="flex justify-between">
             <label for="selected_date" class="block text-sm font-medium text-gray-700">Time</label>
             <span class="text-sm text-gray-500" id="email-optional">24hr</span>
           </div>
-          <div class="rounded-lg border w-48">
-              <div class="flex items-center">
-                  <input phx-keyup="validate" value={get_hours(@time)} phx-value-input="hour" phx-target={@myself} type="text" name="hour" class="text-sm py-2 text-right w-1/2 border-transparent focus:border-transparent focus:ring-0" placeholder="HH">
-                  <span>:</span>
-                  <input phx-keyup="validate" value={get_minutes(@time)} phx-value-input="minute" phx-value-id={@id} phx-target={@myself} type="text" name="minute"  class="text-sm py-2 w-1/2 border-transparent focus:border-transparent focus:ring-0" placeholder="MM">
+          <div class="flex -space-x-px text-gray-600">
+              <div class="w-1/2 flex-1 min-w-0">
+                <input type="text" phx-keyup="validate" value={get_hours(@time)} phx-value-input="hour" phx-target={@myself} class="text-right focus:ring-0 relative block w-full rounded-none rounded-bl-md rounded-tl-md bg-transparent text-sm border-gray-300" placeholder="HH">
+              </div>
+              <div class="flex-1 min-w-0">
+                <input type="text" phx-keyup="validate" value={get_minutes(@time)} phx-value-input="minute" phx-value-id={@id} phx-target={@myself} class="focus:ring-0 relative block w-full rounded-none rounded-br-md rounded-tr-md bg-transparent text-sm border-gray-300" placeholder="MM">
               </div>
           </div>
           <%= if @invalid do %>

@@ -8,6 +8,7 @@
               {modules,['Elixir.Dt','Elixir.Dt.Application','Elixir.DtWeb',
                         'Elixir.DtWeb.ChannelCase',
                         'Elixir.DtWeb.Components.DatePicker',
+                        'Elixir.DtWeb.Components.DateTime',
                         'Elixir.DtWeb.Components.TimeInput',
                         'Elixir.DtWeb.ConnCase','Elixir.DtWeb.Endpoint',
                         'Elixir.DtWeb.ErrorHelpers','Elixir.DtWeb.ErrorView',

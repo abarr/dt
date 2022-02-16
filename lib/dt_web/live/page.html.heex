@@ -2,8 +2,26 @@
     <div class="bg-white">
         <ul role="list" class="">
             <li class="border">
+                <p class="px-10 py-5 font-medium text-xl">DateTime with no restrictions</p>
+                <div class="grid grid-cols-2 px-8">
+                    <div class="">
+                        <.live_component 
+                            module={DateTime} 
+                            id="10" 
+                            selected_date={nil}
+                            current_date={@today}
+                            today={@today}
+                        />
+                    </div>
+                    <div class="m-10 text-gray-800 font-normal">
+                        <label> Parent LiveView - Date selected:</label>
+                    </div>
+                </div>
+            </li>
+
+            <li class="border">
                 <p class="px-10 py-5 font-medium text-xl">Datepicker with no restrictions</p>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 px-8">
                     <div class="">
                         <.live_component 
                             module={DatePicker} 
@@ -20,7 +38,7 @@
             </li>
             <li class="mt-8 border">
                 <p class="px-10 py-5 font-medium text-xl">Datepick with minimum date set to first of current month</p>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 px-8">
                     <div>
                         <.live_component 
                             module={DatePicker} 
@@ -38,7 +56,7 @@
             </li>
             <li class="mt-8 border">
                 <p class="px-10 py-5 font-medium text-xl">Datepick with maximum date set to last date of current month</p>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 px-8">
                     <div>
                         <.live_component 
                             module={DatePicker} 
@@ -56,7 +74,7 @@
             </li>
             <li class="mt-8 border">
                 <p class="px-10 py-5 font-medium text-xl">Datepick with minimum and maximum dates set to first and last date of current month</p>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 px-8">
                     <div>
                         <.live_component 
                             module={DatePicker} 
@@ -75,7 +93,7 @@
             </li>
             <li class="mt-8 border">
                 <p class="px-10 py-5 font-medium text-xl">Datepick with minimum and maximum dates set to first and last date of current month</p>
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-2 px-8">
                     <div>
                         <.live_component module={TimeInput} id="5" time={NaiveDateTime.local_now() |> NaiveDateTime.to_time()} invalid={false}/>
                     </div>

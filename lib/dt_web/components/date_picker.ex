@@ -22,7 +22,7 @@ defmodule DtWeb.Components.DatePicker do
     ~H"""
     <div id={@id} class="">
       <div class="relative" phx-click={JS.toggle(to: "#picker_#{@id}", in: {"ease-in duration-300", "opacity-0", "opacity-100"}, out: {"ease-out duration-300", "opacity-100", "opacity-0"})} phx-target={@myself}>
-        <div class=" w-full max-w-md flex-none border-l border-gray-100 py-2 px-8 block">
+        <div class="w-96 max-w-md flex-none border-l border-gray-100 py-2 block">
           <div>
             <label for="selected_date" class="block text-sm font-medium text-gray-700">Date</label>
             <div class="mt-1 relative rounded-md shadow-sm">
@@ -37,7 +37,7 @@ defmodule DtWeb.Components.DatePicker do
           </div>
         </div>
       </div>
-      <div id={"picker_#{@id}"} class="hidden w-full max-w-md absolute z-40 bg-white" >
+      <div id={"picker_#{@id}"} class="hidden w-96 max-w-md absolute z-40 bg-white" >
         <div phx-click-away={JS.hide(to: "#picker_#{@id}")} phx-target={@myself} class=" flex-none border-l border-gray-100 py-2 px-8 block">
           <div class="flex items-center text-center text-gray-900">
             <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500" phx-target={@myself} phx-click={JS.push("prev-month", loading: "#picker_#{@id}")}>
